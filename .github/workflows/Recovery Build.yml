@@ -14,19 +14,19 @@ on:
       DEVICE_TREE_URL:
         description: Device Tree URL
         required: true
-        default: https://gitlab.com/OrangeFox/device/lavender
+        default: https://gitlab.com/1ndev-ui/TWRP_CG65_device_tree.git
       DEVICE_TREE_BRANCH:
         description: Device Tree Branch
         required: true
-        default: fox_12.1
+        default: main
       DEVICE_PATH:
         description: Path the device tree should be synced to, relative to source root
         required: true
-        default: device/xiaomi/lavender
+        default: device/vortex/CG65
       DEVICE_NAME:
         description: Device Name from tree (should match name on twrp_<DEVICE_NAME>.mk)
         required: true
-        default: lavender
+        default: CG65
       BUILD_TARGET:
         type: choice
         description: Partition containing recovery ramdisk
@@ -35,16 +35,26 @@ on:
         - recovery
         - vendor_boot
         required: true
-        default: recovery
+        default: boot
       OPTIONAL_FLAGS:
         description: (Optional) Additional "FOX_" flags for build can be added here
         required: false
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     # You can use either of the ubuntu-20.04 or ubuntu-22.04 runner
     steps:
+    - name: Check if sender is repository owner
+      if: github.event.repository.owner.login == github.event.sender.login
+      run: |
+        echo "Sender is the repository owner"
+    - name: Not the repository owner
+      if: github.event.repository.owner.login != github.event.sender.login
+      run: |
+        echo "Sender is not the repository owner"
+        exit 1
+        
     - name: Display Run Parameters
       run: |
         echo "::group::User Environment Variables"
