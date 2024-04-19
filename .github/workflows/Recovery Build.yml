@@ -14,7 +14,7 @@ on:
       DEVICE_TREE_URL:
         description: Device Tree URL
         required: true
-        default: https://gitlab.com/1ndev-ui/TWRP_CG65_device_tree.git
+        default: https://github.com/1ndev-ui/TWRP_CG65_device_tree.git
       DEVICE_TREE_BRANCH:
         description: Device Tree Branch
         required: true
@@ -44,17 +44,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     # You can use either of the ubuntu-20.04 or ubuntu-22.04 runner
-    steps:
-    - name: Check if sender is repository owner
-      if: github.event.repository.owner.login == github.event.sender.login
-      run: |
-        echo "Sender is the repository owner"
-    - name: Not the repository owner
-      if: github.event.repository.owner.login != github.event.sender.login
-      run: |
-        echo "Sender is not the repository owner"
-        exit 1
-        
+    steps:        
     - name: Display Run Parameters
       run: |
         echo "::group::User Environment Variables"
