@@ -14,7 +14,7 @@ on:
       DEVICE_TREE_URL:
         description: Device Tree URL
         required: true
-        default: https://github.com/1ndev-ui/TWRP_CG65_device_tree.git
+        default: https://github.com/1ndev-ui/TWRP_CG65_device_tree
       DEVICE_TREE_BRANCH:
         description: Device Tree Branch
         required: true
