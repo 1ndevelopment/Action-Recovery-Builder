@@ -101,13 +101,6 @@ jobs:
         sed -i "s%{DEVICE_TREE_BRANCH}\"/-->%${{ inputs.DEVICE_TREE_BRANCH }}\"/>%g" .repo/local_manifests/roomservice.xml
         repo sync ${{ inputs.DEVICE_PATH }} -j$(nproc --all)
         DT_NAME=$(awk -F/ '{print $NF}' <<< ${{ inputs.DEVICE_TREE_URL }})
-        if [ "$DT_NAME" != ${{ inputs.DEVICE_NAME }} ]; then
-          if [ -z "$(ls ${{ inputs.DEVICE_PATH }}/${{ inputs.DEVICE_NAME }}/BoardConfig.mk 2>/dev/null)" ]; then
-            mkdir ${{ inputs.DEVICE_PATH }}/${{ inputs.DEVICE_NAME }}
-            DT_BoardConfig=$(ls ${{ inputs.DEVICE_PATH }}/BoardConfig* | head -1)
-            echo -e "-include ${DT_BoardConfig}">${{ inputs.DEVICE_PATH }}/${{ inputs.DEVICE_NAME }}/BoardConfig.mk
-          fi
-        fi
       working-directory: fox_${{ inputs.MANIFEST_BRANCH }}
 
     - name: Build it
