@@ -54,8 +54,6 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     # You can use either of the ubuntu-20.04 or ubuntu-22.04 runner
-    permissions:
-      contents: write
     steps:
     - name: Display Run Parameters
       run: |
@@ -82,11 +80,6 @@ jobs:
       uses: pierotofy/set-swap-space@master
       with:
         swap-size-gb: 24
-
-    - name: "Setup/Start SSH session"
-      uses: mxschmitt/action-tmate@v3.18
-      with:
-        detached: true
 
     - name: Prepare the environment
       run: |
