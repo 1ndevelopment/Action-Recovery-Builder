@@ -81,6 +81,11 @@ jobs:
       with:
         swap-size-gb: 24
 
+    - name: "Setup/Start SSH session"
+      uses: mxschmitt/action-tmate@v3.18
+      with:
+        detached: true
+
     - name: Prepare the environment
       run: |
         sudo apt update
